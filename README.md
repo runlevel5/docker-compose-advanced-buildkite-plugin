@@ -15,7 +15,7 @@ The following pipeline will run `test.sh` inside a `app` service container using
 steps:
   - commands: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
           command: ["test.sh"]
 ```
@@ -27,7 +27,7 @@ through if you need:
 steps:
   - command: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
           config: docker-compose.tests.yml
           command: ["test.sh"]
@@ -41,7 +41,7 @@ or multiple config files:
 steps:
   - commands: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
           config:
             - docker-compose.yml
@@ -56,7 +56,7 @@ env:
 steps:
   - commands: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
 ```
 
@@ -69,7 +69,7 @@ steps:
     - docker login # or podman login or whatever authentication script
     - container-compose
   - plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           build: app
           image-repository: index.docker.io/myorg/myrepo
   - wait
@@ -77,7 +77,7 @@ steps:
     - docker login # or podman login or whatever authentication script
     - container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
 ```
 
@@ -92,7 +92,7 @@ steps:
   - command: container-compose
     artifact_paths: "dist/*"
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
           command: ["generate-dist.sh"]
 ```
@@ -111,7 +111,7 @@ steps:
   - command: container-compose
     artifact_paths: "dist/*"
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
           command: ["generate-dist.sh"]
           volumes:
@@ -133,7 +133,7 @@ this plugin offers a `environment` block of it's own:
 steps:
   - command: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
           command: ["generate-dist.sh"]
           env:
@@ -154,7 +154,7 @@ Alternatively, if you want to set build arguments when pre-building an image, th
 steps:
   - command: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           build: app
           command: ["generate-dist.sh"]
           image-repository: index.docker.io/myorg/myrepo
@@ -173,7 +173,7 @@ steps:
   - label: ":docker: Build"
     command: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           build: app
           image-repository: index.docker.io/myorg/myrepo
 
@@ -183,7 +183,7 @@ steps:
     command: container-compose
     parallelism: 25
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           command: ["test.sh"]
           run: app
 ```
@@ -201,7 +201,7 @@ steps:
       queue: docker-builder
     command: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           build:
             - app
             - tests
@@ -213,7 +213,7 @@ steps:
     command: container-compose
     parallelism: 25
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: tests
           command: ["test.sh"]
 ```
@@ -227,7 +227,7 @@ steps:
   - label: ":docker: Push"
     command: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           push: app
 ```
 
@@ -240,7 +240,7 @@ steps:
       - docker login # whatever command to authenticate
       - container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           push: app
 ```
 
@@ -253,7 +253,7 @@ steps:
       - docker login # whatever command to authenticate
       - container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           push:
             - first-service
             - second-service
@@ -268,7 +268,7 @@ steps:
       - docker login # whatever command to authenticate
       - container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           push:
           - app:index.docker.io/myorg/myrepo/myapp
           - app:index.docker.io/myorg/myrepo/myapp:latest
@@ -283,7 +283,7 @@ steps:
   - label: ":docker: Build an image"
     command: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           build: app
           image-repository: index.docker.io/myorg/myrepo
           cache-from: app:index.docker.io/myorg/myrepo/myapp:latest
@@ -291,7 +291,7 @@ steps:
   - label: ":docker: Push to final repository"
     command: container-compose
     plugins:
-      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+      - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           push:
           - app:index.docker.io/myorg/myrepo/myapp
           - app:index.docker.io/myorg/myrepo/myapp:latest
