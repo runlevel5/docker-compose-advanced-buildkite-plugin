@@ -10,12 +10,12 @@ load '../lib/run'
 
 @test "Run without a prebuilt image" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="echo hello world"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -36,12 +36,12 @@ load '../lib/run'
 
 @test "Run without a prebuilt image and an empty command" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=""
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -62,13 +62,13 @@ load '../lib/run'
 
 @test "Run without a prebuilt image and a custom workdir" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=""
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_WORKDIR=/test_workdir
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_WORKDIR=/test_workdir
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -89,12 +89,12 @@ load '../lib/run'
 
 @test "Run without a prebuilt image with a quoted command" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="sh -c 'echo hello world'"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -115,14 +115,14 @@ load '../lib/run'
 
 @test "Run without a prebuilt image with a multi-line command" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="cmd1
 cmd2
 cmd3"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -143,14 +143,14 @@ cmd3"
 
 @test "Run without a prebuilt image with a command config" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=""
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND_0=echo
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND_1="hello world"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_COMMAND_0=echo
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_COMMAND_1="hello world"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -171,17 +171,17 @@ cmd3"
 
 @test "Run without a prebuilt image with custom env" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ENV_0=MYENV=0
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ENV_1=MYENV
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ENVIRONMENT_0=MYENV=2
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ENVIRONMENT_1=MYENV
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ENVIRONMENT_2=ANOTHER="this is a long string with spaces; and semi-colons"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ENV_0=MYENV=0
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ENV_1=MYENV
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ENVIRONMENT_0=MYENV=2
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ENVIRONMENT_1=MYENV
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ENVIRONMENT_2=ANOTHER="this is a long string with spaces; and semi-colons"
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -201,13 +201,13 @@ cmd3"
 
 @test "Run without a prebuilt image with no-cache" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_NO_CACHE=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_NO_CACHE=true
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="echo hello world"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull --no-cache myservice : echo built myservice" \
@@ -228,14 +228,14 @@ cmd3"
 
 @test "Run without a prebuilt image with build args" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ARGS_0=MYARG=0
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ARGS_1=MYARG=1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ARGS_0=MYARG=0
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ARGS_1=MYARG=1
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="echo hello world"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull --build-arg MYARG=0 --build-arg MYARG=1 myservice : echo built myservice" \
@@ -256,12 +256,12 @@ cmd3"
 
 @test "Run with a prebuilt image" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -282,13 +282,13 @@ cmd3"
 
 @test "Run with a prebuilt image and custom config file" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG=tests/composefiles/docker-compose.v2.0.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG=tests/composefiles/docker-compose.v2.0.yml
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f tests/composefiles/docker-compose.v2.0.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -309,14 +309,14 @@ cmd3"
 
 @test "Run with a prebuilt image and multiple custom config files" {
 export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_0=tests/composefiles/docker-compose.v2.0.yml
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_1=tests/composefiles/docker-compose.v2.1.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_0=tests/composefiles/docker-compose.v2.0.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_1=tests/composefiles/docker-compose.v2.1.yml
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f tests/composefiles/docker-compose.v2.0.yml -f tests/composefiles/docker-compose.v2.1.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -338,12 +338,12 @@ export BUILDKITE_JOB_ID=1111
 @test "Run with a prebuilt image and custom config file set from COMPOSE_FILE" {
   export COMPOSE_FILE=tests/composefiles/docker-compose.v2.0.yml
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f tests/composefiles/docker-compose.v2.0.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -364,12 +364,12 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with a single prebuilt image, no retry on failed pull" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : exit 2"
@@ -388,13 +388,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with a single prebuilt image, retry on failed pull" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PULL_RETRIES=3
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PULL_RETRIES=3
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : exit 2" \
@@ -417,13 +417,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run without a TTY" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_TTY=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_TTY=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -444,13 +444,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run without dependencies" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_DEPENDENCIES=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_DEPENDENCIES=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -470,13 +470,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run without ansi output" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ANSI=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ANSI=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -497,13 +497,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with use aliases" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_USE_ALIASES=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_USE_ALIASES=true
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -524,14 +524,14 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with a volumes option" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_VOLUMES_0="./dist:/app/dist"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_VOLUMES_1="./pkg:/app/pkg"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_VOLUMES_0="./dist:/app/dist"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_VOLUMES_1="./pkg:/app/pkg"
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -552,13 +552,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with an external volume" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_VOLUMES="buildkite:/buildkite"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_VOLUMES="buildkite:/buildkite"
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -582,12 +582,12 @@ export BUILDKITE_JOB_ID=1111
   # EXPORT BUILDKITE_DOCKER_DEFAULT_VOLUMES="new:mount; ${BUILDKITE_DOCKER_DEFAULT_VOLUMES:-}"
   # was used with no existing value
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
   export BUILDKITE_DOCKER_DEFAULT_VOLUMES="buildkite:/buildkite; ./dist:/app/dist;; ;   ;"
 
   stub docker-compose \
@@ -609,12 +609,12 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with default volumes" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
   export BUILDKITE_DOCKER_DEFAULT_VOLUMES="buildkite:/buildkite;./dist:/app/dist"
 
   stub docker-compose \
@@ -636,15 +636,15 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with multiple config files" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="echo hello world"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_0="llamas1.yml"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_1="llamas2.yml"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_2="llamas3.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_0="llamas1.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_1="llamas2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_2="llamas3.yml"
 
   stub docker-compose \
     "-f llamas1.yml -f llamas2.yml -f llamas3.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -665,12 +665,12 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with a failure should expand previous group" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -691,14 +691,14 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with multiple prebuilt images and multiple pulls" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PULL_0=myservice1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PULL_1=myservice2
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PULL_0=myservice1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PULL_1=myservice2
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull --parallel myservice1 myservice2 : echo pulled myservice1 and myservice2" \
@@ -722,13 +722,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run without a prebuilt image and a custom user" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="sh -c 'whoami'"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_USER="1000"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_USER="1000"
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -749,13 +749,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run without a prebuilt image and a custom user and group" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="sh -c 'whoami'"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_USER="1000"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_USER="1000"
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -776,13 +776,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run without --rm" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=pwd
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RM=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RM=false
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml pull myservice : echo pulled myservice" \
@@ -803,13 +803,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with custom entrypoint" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=""
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ENTRYPOINT="my custom entrypoint"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ENTRYPOINT="my custom entrypoint"
 
   ENTRYPOINT='--entrypoint\ \"my\ custom\ entrypoint\"'
 
@@ -832,13 +832,13 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with mount-buildkite-agent enabled" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND=""
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_MOUNT_BUILDKITE_AGENT=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_MOUNT_BUILDKITE_AGENT=true
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \
@@ -859,14 +859,14 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with various build arguments" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="echo hello world"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_NO_CACHE=true
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_PARALLEL=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_NO_CACHE=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_PARALLEL=true
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull --no-cache --parallel myservice : echo built myservice" \
@@ -887,12 +887,12 @@ export BUILDKITE_JOB_ID=1111
 
 @test "Run with git-mirrors" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="echo hello world"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
   export BUILDKITE_REPO_MIRROR=/tmp/sample-mirror
 
   stub docker-compose \
@@ -915,13 +915,13 @@ export BUILDKITE_JOB_ID=1111
 @test "Run with mount-ssh-agent" {
   export SSH_AUTH_SOCK=/tmp/ssh_auth_sock
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_COMMAND="echo hello world"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CHECK_LINKED_CONTAINERS=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CLEANUP=false
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_MOUNT_SSH_AGENT=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CHECK_LINKED_CONTAINERS=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CLEANUP=false
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_MOUNT_SSH_AGENT=true
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 build --pull myservice : echo built myservice" \

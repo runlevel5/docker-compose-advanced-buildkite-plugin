@@ -163,7 +163,7 @@ if [[ -n "$(plugin_read_config ENTRYPOINT)" ]] ; then
 fi
 
 # Mount ssh-agent socket and known_hosts
-if [[ "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_MOUNT_SSH_AGENT:-$mount_ssh_agent}" =~ ^(true|on|1)$ ]] ; then
+if [[ "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_MOUNT_SSH_AGENT:-$mount_ssh_agent}" =~ ^(true|on|1)$ ]] ; then
   if [[ -z "${SSH_AUTH_SOCK:-}" ]] ; then
     echo "+++ 🚨 \$SSH_AUTH_SOCK isn't set, has ssh-agent started?"
     exit 1
@@ -221,7 +221,7 @@ while read -r arg ; do
   [[ -n "${arg:-}" ]] && build_params+=("--build-arg" "${arg}")
 done <<< "$(plugin_read_list ARGS)"
 
-if [[ "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_REQUIRE_PREBUILD:-}" =~ ^(true|on|1)$ ]] && [[ ! -f "$override_file" ]] ; then
+if [[ "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_REQUIRE_PREBUILD:-}" =~ ^(true|on|1)$ ]] && [[ ! -f "$override_file" ]] ; then
   echo "+++ 🚨 No pre-built image found from a previous 'build' step for this service and config file."
   echo "The step specified that it was required"
   exit 1
@@ -261,11 +261,11 @@ if [[ -n "${BUILDKITE_COMMAND}" ]]; then
 fi
 
 # Handle shell being disabled
-if [[ "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_SHELL:-}" =~ ^(false|off|0)$ ]] ; then
+if [[ "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_SHELL:-}" =~ ^(false|off|0)$ ]] ; then
   shell_disabled=1
 
 # Show a helpful error message if a string version of shell is used
-elif [[ -n "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_SHELL:-}" ]] ; then
+elif [[ -n "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_SHELL:-}" ]] ; then
   echo -n "🚨 The Docker Compose Plugin’s shell configuration option must be specified as an array. "
   echo -n "Please update your pipeline.yml to use an array, "
   echo "for example: [\"/bin/sh\", \"-e\", \"-u\"]."
@@ -275,7 +275,7 @@ elif [[ -n "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_SHELL:-}" ]] ; then
   exit 1
 
 # Handle shell being provided as a string or list
-elif plugin_read_list_into_result BUILDKITE_PLUGIN_DOCKER_COMPOSE_SHELL ; then
+elif plugin_read_list_into_result BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_SHELL ; then
   shell_disabled=''
   for arg in "${result[@]}" ; do
     shell+=("$arg")
@@ -294,13 +294,13 @@ fi
 command=()
 
 # Show a helpful error message if string version of command is used
-if [[ -n "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND:-}" ]] ; then
+if [[ -n "${BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_COMMAND:-}" ]] ; then
   echo "🚨 The Docker Compose Plugin’s command configuration option must be an array."
   exit 1
 fi
 
 # Parse plugin command if provided
-if plugin_read_list_into_result BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND ; then
+if plugin_read_list_into_result BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_COMMAND ; then
   for arg in "${result[@]}" ; do
     command+=("$arg")
   done

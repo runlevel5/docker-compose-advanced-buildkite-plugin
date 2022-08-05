@@ -11,5 +11,5 @@ DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # skip checkout if skip-checkout is set
 if [[ "$(plugin_read_config SKIP_CHECKOUT "false")" == "true" ]] ; then
   export BUILDKITE_REPO=""
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_REQUIRE_PREBUILD="true"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_REQUIRE_PREBUILD="true"
 fi

@@ -28,14 +28,14 @@ function plugin_prompt_and_must_run() {
 
 # Shorthand for reading env config
 function plugin_read_config() {
-  local var="BUILDKITE_PLUGIN_DOCKER_COMPOSE_${1}"
+  local var="BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_${1}"
   local default="${2:-}"
   echo "${!var:-$default}"
 }
 
 # Reads either a value or a list from plugin config
 function plugin_read_list() {
-  prefix_read_list "BUILDKITE_PLUGIN_DOCKER_COMPOSE_$1"
+  prefix_read_list "BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_$1"
 }
 
 # Reads either a value or a list from the given env prefix

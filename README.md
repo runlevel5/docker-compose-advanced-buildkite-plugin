@@ -5,7 +5,7 @@ following changes:
 
 * The plugin would not be automatically run, users need to specify when
 they want to invoke the driver
-* The `BUILDKITE_COMMAND` env var will be ignored. Only `BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND` envar is read
+* The top-level command will be ignored. Only plugin-level command is read
 
 But why? I am not a big fan of buildkite plugins because when you have
 more than one plugin it is quite HARD to tell which logic of which plugin
@@ -337,7 +337,7 @@ The repository for pushing and pulling pre-built images, same as the repository 
 
 The default is `""` which only builds images on the local Docker host doing the build.
 
-This option can also be configured on the agent machine using the environment variable `BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY`.
+This option can also be configured on the agent machine using the environment variable `BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY`.
 
 ### `image-name` (optional, build only)
 
@@ -401,13 +401,13 @@ Default: `false`
 
 A number of times to retry failed docker pull. Defaults to 0.
 
-This option can also be configured on the agent machine using the environment variable `BUILDKITE_PLUGIN_DOCKER_COMPOSE_PULL_RETRIES`.
+This option can also be configured on the agent machine using the environment variable `BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PULL_RETRIES`.
 
 ### `push-retries` (optional)
 
 A number of times to retry failed docker push. Defaults to 0.
 
-This option can also be configured on the agent machine using the environment variable `BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH_RETRIES`.
+This option can also be configured on the agent machine using the environment variable `BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH_RETRIES`.
 
 ### `cache-from` (optional, build only)
 

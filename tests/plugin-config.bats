@@ -4,7 +4,7 @@ load '/usr/local/lib/bats/load.bash'
 load '../lib/shared'
 
 @test "Read existing config without default" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=llamas
   run plugin_read_config 'RUN'
 
   assert_success
@@ -12,7 +12,7 @@ load '../lib/shared'
 }
 
 @test "Read existing config with default" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_RUN=llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_RUN=llamas
   run plugin_read_config 'RUN' 'blah'
 
   assert_success

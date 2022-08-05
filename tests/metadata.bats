@@ -14,7 +14,7 @@ load '../lib/metadata'
 }
 
 @test "Image service tag with single non-default config" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG=tests/composefiles/docker-compose.v2.0.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG=tests/composefiles/docker-compose.v2.0.yml
 
   run prebuilt_image_meta_data_key "service"
 
@@ -23,8 +23,8 @@ load '../lib/metadata'
 }
 
 @test "Image service tag with multiple non-default config" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_0=tests/composefiles/docker-compose.v2.0.yml
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_1=tests/composefiles/docker-compose.v2.1.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_0=tests/composefiles/docker-compose.v2.0.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_1=tests/composefiles/docker-compose.v2.1.yml
 
   run prebuilt_image_meta_data_key "service"
 

@@ -17,7 +17,7 @@ load '../lib/run'
 }
 
 @test "Possible to gracefully shutdown containers in docker-compose cleanup" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_GRACEFUL_SHUTDOWN=1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_GRACEFUL_SHUTDOWN=1
   run_docker_compose() {
     echo "$@"
   }
@@ -30,7 +30,7 @@ load '../lib/run'
 }
 
 @test "Possible to skip volume destruction in docker-compose cleanup" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_LEAVE_VOLUMES=1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_LEAVE_VOLUMES=1
   run_docker_compose() {
     echo "$@"
   }

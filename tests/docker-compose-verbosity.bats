@@ -18,7 +18,7 @@ load '../lib/run'
 }
 
 @test "docker-compose verbosity config set to 'true'" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_VERBOSE="true"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_VERBOSE="true"
 
   stub docker-compose \
     "--verbose -f docker-compose.yml -p buildkite run tests : echo ran with verbose flag"
@@ -31,7 +31,7 @@ load '../lib/run'
 }
 
 @test "docker-compose verbosity config set to 'false'" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_VERBOSE="false"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_VERBOSE="false"
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite run tests : echo ran without verbose flag"

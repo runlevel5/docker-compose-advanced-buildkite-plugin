@@ -10,7 +10,7 @@ load '../lib/shared'
 
 @test "Push a single service with an image in it's config" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH=app
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH=app
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -36,8 +36,8 @@ load '../lib/shared'
 
 @test "Push two services with target repositories and tags" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH_0=myservice1:my.repository/myservice1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH_1=myservice2:my.repository/myservice2:llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH_0=myservice1:my.repository/myservice1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH_1=myservice2:my.repository/myservice2:llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -73,7 +73,7 @@ load '../lib/shared'
 
 @test "Push a prebuilt image with a repository and a tag" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH=myservice:my.repository/myservice:llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH=myservice:my.repository/myservice:llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -103,9 +103,9 @@ load '../lib/shared'
 
 @test "Push a prebuilt image to multiple tags" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH_0=myservice:my.repository/myservice:llamas
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH_1=myservice:my.repository/myservice:latest
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH_2=myservice:my.repository/myservice:alpacas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH_0=myservice:my.repository/myservice:llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH_1=myservice:my.repository/myservice:latest
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH_2=myservice:my.repository/myservice:alpacas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -151,7 +151,7 @@ load '../lib/shared'
 
 @test "Push a single service that needs to be built" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH=helper:my.repository/helper:llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH=helper:my.repository/helper:llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 

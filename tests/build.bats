@@ -9,7 +9,7 @@ load '../lib/shared'
 
 @test "Build without a repository" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -25,8 +25,8 @@ load '../lib/shared'
 
 @test "Build with no-cache" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_NO_CACHE=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_NO_CACHE=true
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -42,8 +42,8 @@ load '../lib/shared'
 
 @test "Build with parallel" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_PARALLEL=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_PARALLEL=true
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -59,11 +59,11 @@ load '../lib/shared'
 
 @test "Build with build args" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ARGS_0=MYARG=0
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ARGS_1=MYARG=1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ARGS_0=MYARG=0
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_ARGS_1=MYARG=1
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml build --pull --build-arg MYARG=0 --build-arg MYARG=1 myservice : echo built myservice"
@@ -77,8 +77,8 @@ load '../lib/shared'
 
 @test "Build with a repository" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -101,10 +101,10 @@ load '../lib/shared'
 
 @test "Build with a repository and multiple build aliases" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_ALIAS_0=myservice-1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_ALIAS_1=myservice-2
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_ALIAS_0=myservice-1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_ALIAS_1=myservice-2
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -131,11 +131,11 @@ load '../lib/shared'
 
 @test "Build with a repository and push retries" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PUSH_RETRIES=3
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PUSH_RETRIES=3
 
   stub docker-compose \
     "-f docker-compose.yml -p buildkite1111 -f docker-compose.buildkite-1-override.yml build --pull myservice : echo built myservice" \
@@ -158,9 +158,9 @@ load '../lib/shared'
 
 @test "Build with a repository and custom config file" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG=tests/composefiles/docker-compose.v2.0.yml
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG=tests/composefiles/docker-compose.v2.0.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -183,10 +183,10 @@ load '../lib/shared'
 
 @test "Build with a repository and multiple custom config files" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_0=tests/composefiles/docker-compose.v2.0.yml
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_1=tests/composefiles/docker-compose.v2.1.yml
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_0=tests/composefiles/docker-compose.v2.0.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_1=tests/composefiles/docker-compose.v2.1.yml
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -209,9 +209,9 @@ load '../lib/shared'
 
 @test "Build with a repository and multiple services" {
   export BUILDKITE_JOB_ID=1112
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=myservice1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_1=myservice2
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=myservice1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_1=myservice2
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -236,8 +236,8 @@ load '../lib/shared'
 
 @test "Build with a docker-compose v1.0 configuration file" {
   export BUILDKITE_JOB_ID=1112
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v1.0.yml"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=helloworld
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v1.0.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=helloworld
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -248,10 +248,10 @@ load '../lib/shared'
 }
 
 @test "Build with a cache-from image" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=helloworld
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_0=helloworld:my.repository/myservice_cache:latest
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=helloworld
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_0=helloworld:my.repository/myservice_cache:latest
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -272,11 +272,11 @@ load '../lib/shared'
 }
 
 @test "Build with a cache-from image with no-cache also set" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=helloworld
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_0=helloworld:my.repository/myservice_cache:latest
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_NO_CACHE=true
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=helloworld
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_0=helloworld:my.repository/myservice_cache:latest
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_NO_CACHE=true
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -293,11 +293,11 @@ load '../lib/shared'
 }
 
 @test "Build with several cache-from images for one service" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=helloworld
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_0=helloworld:my.repository/myservice_cache:branch-name
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_1=helloworld:my.repository/myservice_cache:latest
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=helloworld
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_0=helloworld:my.repository/myservice_cache:branch-name
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_1=helloworld:my.repository/myservice_cache:latest
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -319,11 +319,11 @@ load '../lib/shared'
 }
 
 @test "Build with several cache-from images for one service with first image being not available" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=helloworld
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_0=helloworld:my.repository/myservice_cache:branch-name
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_1=helloworld:my.repository/myservice_cache:latest
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=helloworld
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_0=helloworld:my.repository/myservice_cache:branch-name
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_1=helloworld:my.repository/myservice_cache:latest
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -346,10 +346,10 @@ load '../lib/shared'
 }
 
 @test "Build with a cache-from image when pulling of the cache-from image failed" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=helloworld
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_0=helloworld:my.repository/myservice_cache:latest
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=helloworld
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_0=helloworld:my.repository/myservice_cache:latest
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -370,10 +370,10 @@ load '../lib/shared'
 }
 
 @test "Build with a cache-from image with hyphen" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=hello-world
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_0=hello-world:my.repository/my-service_cache:latest
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=hello-world
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_0=hello-world:my.repository/my-service_cache:latest
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -394,13 +394,13 @@ load '../lib/shared'
 }
 
 @test "Build with a cache-from image retry on failing pull" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=helloworld
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CACHE_FROM_0=helloworld:my.repository/myservice_cache:latest
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=helloworld
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CACHE_FROM_0=helloworld:my.repository/myservice_cache:latest
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_PULL_RETRIES=3
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_PULL_RETRIES=3
 
   stub docker \
     "pull my.repository/myservice_cache:latest : exit 1" \
@@ -422,9 +422,9 @@ load '../lib/shared'
 
 @test "Build with a custom image-name" {
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_NAME=my-llamas-image
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_NAME=my-llamas-image
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -446,11 +446,11 @@ load '../lib/shared'
 }
 
 @test "Build with a custom image-name and a config" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v3.2.yml"
   export BUILDKITE_JOB_ID=1111
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD=myservice
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_NAME=my-llamas-image
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD=myservice
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_NAME=my-llamas-image
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 
@@ -473,11 +473,11 @@ load '../lib/shared'
 
 @test "Build multiple images with custom image-names" {
   export BUILDKITE_JOB_ID=1112
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_0=myservice1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_BUILD_1=myservice2
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_NAME_0=my-llamas-image-1
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_NAME_1=my-llamas-image-2
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_IMAGE_REPOSITORY=my.repository/llamas
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_0=myservice1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_BUILD_1=myservice2
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_NAME_0=my-llamas-image-1
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_NAME_1=my-llamas-image-2
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_IMAGE_REPOSITORY=my.repository/llamas
   export BUILDKITE_PIPELINE_SLUG=test
   export BUILDKITE_BUILD_NUMBER=1
 

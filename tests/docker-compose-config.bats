@@ -11,9 +11,9 @@ load '../lib/shared'
 }
 
 @test "Read docker-compose config when there are several" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_0="llamas1.yml"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_1="llamas2.yml"
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG_2="llamas3.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_0="llamas1.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_1="llamas2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG_2="llamas3.yml"
   run docker_compose_config_files
 
   assert_success
@@ -23,7 +23,7 @@ load '../lib/shared'
 }
 
 @test "Read colon delimited config files" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="llamas1.yml:llamas2.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="llamas1.yml:llamas2.yml"
   run docker_compose_config_files
 
   assert_success
@@ -32,21 +32,21 @@ load '../lib/shared'
 }
 
 @test "Read version from docker-compose v2.0 file with whitespace around the version" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v2.0.with-version-whitespace.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v2.0.with-version-whitespace.yml"
   run docker_compose_config_version
   assert_success
   assert_output "2"
 }
 
 @test "Read version from docker-compose v2.0 file" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v2.0.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v2.0.yml"
   run docker_compose_config_version
   assert_success
   assert_output "2"
 }
 
 @test "Read version from docker-compose v2.1 file" {
-  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_CONFIG="tests/composefiles/docker-compose.v2.1.yml"
+  export BUILDKITE_PLUGIN_DOCKER_COMPOSE_ADVANCED_CONFIG="tests/composefiles/docker-compose.v2.1.yml"
   run docker_compose_config_version
   assert_success
   assert_output "2.1"
