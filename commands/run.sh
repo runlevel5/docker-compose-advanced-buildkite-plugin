@@ -306,11 +306,6 @@ if plugin_read_list_into_result BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND ; then
   done
 fi
 
-if [[ ${#command[@]} -gt 0 ]] && [[ -n "${BUILDKITE_COMMAND}" ]] ; then
-  echo "+++ Error: Can't use both a step level command and the command parameter of the plugin"
-  exit 1
-fi
-
 # Assemble the shell and command arguments into the docker arguments
 
 display_command=()
@@ -322,10 +317,7 @@ if [[ ${#shell[@]} -gt 0 ]] ; then
   done
 fi
 
-if [[ -n "${BUILDKITE_COMMAND}" ]] ; then
-  run_params+=("${BUILDKITE_COMMAND}")
-  display_command+=("'${BUILDKITE_COMMAND}'")
-elif [[ ${#command[@]} -gt 0 ]] ; then
+if [[ ${#command[@]} -gt 0 ]] ; then
   for command_arg in "${command[@]}" ; do
     run_params+=("$command_arg")
     display_command+=("${command_arg}")

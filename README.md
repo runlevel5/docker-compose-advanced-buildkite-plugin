@@ -1,11 +1,11 @@
-# Docker Compose Buildkite Plugin [![Build status](https://badge.buildkite.com/a1d1805d117ec32791cb22055aedc5ff709f1498024295bef0.svg?branch=master)](https://buildkite.com/buildkite/plugins-docker-compose)
+# Compono custom version of Docker Compose Buildkite Plugin
 
-A [Buildkite plugin](https://buildkite.com/docs/agent/v3/plugins) that lets you build, run and push build steps using [Docker Compose](https://docs.docker.com/compose/).
+It is a fork of the official Buildkite's Docker Compose plugin with
+following changes:
 
-* Containers are built, run and linked on demand using Docker Compose
-* Containers are namespaced to each build job, and cleaned up after use
-* Supports pre-building of images, allowing for fast parallel builds across distributed agents
-* Supports pushing tagged images to a repository
+* The plugin would not be automatically run, users need to specify when
+they want to invoke the driver
+* The `BUILDKITE_COMMAND` env var will be ignored. Only `BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND` envar is read.
 
 ## Example
 
@@ -13,10 +13,11 @@ The following pipeline will run `test.sh` inside a `app` service container using
 
 ```yml
 steps:
-  - command: test.sh
+  - commands: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: app
+          command: ["test.sh"]
 ```
 
 You can also specify a custom Docker Compose config file and what environment to pass
@@ -24,11 +25,12 @@ through if you need:
 
 ```yml
 steps:
-  - command: test.sh
+  - command: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: app
           config: docker-compose.tests.yml
+          command: ["test.sh"]
           env:
             - BUILDKITE_BUILD_NUMBER
 ```
@@ -37,9 +39,9 @@ or multiple config files:
 
 ```yml
 steps:
-  - command: test.sh
+  - commands: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: app
           config:
             - docker-compose.yml
@@ -52,39 +54,31 @@ You can also specify the Docker Compose config file with [`$COMPOSE_FILE`](https
 env:
   COMPOSE_FILE: docker-compose.yml
 steps:
-  - command: test.sh
+  - commands: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: app
 ```
 
-You can leverage the [docker-login plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) in tandem for authenticating with a registry. For example, the following will build and push an image to a private repo, and pull from that private repo in subsequent run commands:
+If the container images reside in private registry, you can perform authentication
+as part of the `commands` directives:
 
 ```yml
 steps:
+  - commands:
+    - docker login # or podman login or whatever authentication script
+    - container-compose
   - plugins:
-      - docker-login#v2.0.1:
-          username: xyz
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           build: app
           image-repository: index.docker.io/myorg/myrepo
   - wait
-  - command: test.sh
+  - commands:
+    - docker login # or podman login or whatever authentication script
+    - container-compose
     plugins:
-      - docker-login#v2.0.1:
-          username: xyz
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: app
-```
-
-If you want to control how your command is passed to docker-compose, you can use the command parameter on the plugin directly:
-
-```yml
-steps:
-  - plugins:
-      - docker-compose#v3.10.0:
-          run: app
-          command: ["custom", "command", "values"]
 ```
 
 ## Artifacts
@@ -95,11 +89,12 @@ For example, if you had the following step:
 
 ```yml
 steps:
-  - command: generate-dist.sh
+  - command: container-compose
     artifact_paths: "dist/*"
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: app
+          command: ["generate-dist.sh"]
 ```
 
 Assuming your application’s directory inside the container was `/app`, you would need to ensure your `app` service in your Docker Compose config has the following host volume mount:
@@ -113,11 +108,12 @@ You can also use the `volumes` plugin option to add or override a volume, for ex
 
 ```yml
 steps:
-  - command: generate-dist.sh
+  - command: container-compose
     artifact_paths: "dist/*"
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: app
+          command: ["generate-dist.sh"]
           volumes:
             - "./dist:/app/dist"
 ```
@@ -135,10 +131,11 @@ this plugin offers a `environment` block of it's own:
 
 ```yml
 steps:
-  - command: generate-dist.sh
+  - command: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: app
+          command: ["generate-dist.sh"]
           env:
             - BUILDKITE_BUILD_NUMBER
             - BUILDKITE_PULL_REQUEST
@@ -155,10 +152,11 @@ Alternatively, if you want to set build arguments when pre-building an image, th
 
 ```yml
 steps:
-  - command: generate-dist.sh
+  - command: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           build: app
+          command: ["generate-dist.sh"]
           image-repository: index.docker.io/myorg/myrepo
           args:
             - MY_CUSTOM_ARG=panda
@@ -173,18 +171,20 @@ To speed up run steps that use the same service/image (such as steps that run in
 ```yml
 steps:
   - label: ":docker: Build"
+    command: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           build: app
           image-repository: index.docker.io/myorg/myrepo
 
   - wait
 
   - label: ":docker: Test %n"
-    command: test.sh
+    command: container-compose
     parallelism: 25
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
+          command: ["test.sh"]
           run: app
 ```
 
@@ -199,8 +199,9 @@ steps:
   - label: ":docker: Build"
     agents:
       queue: docker-builder
+    command: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           build:
             - app
             - tests
@@ -209,11 +210,12 @@ steps:
   - wait
 
   - label: ":docker: Test %n"
-    command: test.sh
+    command: container-compose
     parallelism: 25
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           run: tests
+          command: ["test.sh"]
 ```
 
 ## Pushing Tagged Images
@@ -223,20 +225,22 @@ If you want to push your Docker images ready for deployment, you can use the `pu
 ```yml
 steps:
   - label: ":docker: Push"
+    command: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           push: app
 ```
 
-If you need to authenticate to the repository to push (e.g. when pushing to Docker Hub), use the Docker Login plugin:
+If you need to authenticate to the repository to push (e.g. when pushing to Docker Hub), perform authentication right in `commands` directive:
 
 ```yml
 steps:
   - label: ":docker: Push"
+    commands:
+      - docker login # whatever command to authenticate
+      - container-compose
     plugins:
-      - docker-login#v2.0.1:
-          username: xyz
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           push: app
 ```
 
@@ -245,10 +249,11 @@ To push multiple images, you can use a list:
 ```yml
 steps:
   - label: ":docker: Push"
+    commands:
+      - docker login # whatever command to authenticate
+      - container-compose
     plugins:
-      - docker-login#v2.0.1:
-          username: xyz
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           push:
             - first-service
             - second-service
@@ -259,10 +264,11 @@ If you want to push to a specific location (that's not defined as the `image` in
 ```yml
 steps:
   - label: ":docker: Push"
+    commands:
+      - docker login # whatever command to authenticate
+      - container-compose
     plugins:
-      - docker-login#v2.0.1:
-          username: xyz
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           push:
           - app:index.docker.io/myorg/myrepo/myapp
           - app:index.docker.io/myorg/myrepo/myapp:latest
@@ -275,15 +281,17 @@ A newly spawned agent won't contain any of the docker caches for the first run w
 ```yaml
 steps:
   - label: ":docker: Build an image"
+    command: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           build: app
           image-repository: index.docker.io/myorg/myrepo
           cache-from: app:index.docker.io/myorg/myrepo/myapp:latest
   - wait
   - label: ":docker: Push to final repository"
+    command: container-compose
     plugins:
-      - docker-compose#v3.10.0:
+      - https://github.com/runlevel5/docker-compose-buildkite-plugin.git#1.0.0:
           push:
           - app:index.docker.io/myorg/myrepo/myapp
           - app:index.docker.io/myorg/myrepo/myapp:latest
@@ -342,8 +350,6 @@ A list of either KEY or KEY=VALUE that are passed through as environment variabl
 ### `command` (optional, run only, array)
 
 Sets the command for the Docker image, and defaults the `shell` option to `false`. Useful if the Docker image has an entrypoint, or doesn't contain a shell.
-
-This option can't be used if your step already has a top-level, non-plugin `command` option present.
 
 Examples: `[ "/bin/mycommand", "-c", "test" ]`, `["arg1", "arg2"]`
 
