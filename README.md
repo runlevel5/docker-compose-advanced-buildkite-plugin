@@ -5,7 +5,12 @@ following changes:
 
 * The plugin would not be automatically run, users need to specify when
 they want to invoke the driver
-* The `BUILDKITE_COMMAND` env var will be ignored. Only `BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND` envar is read.
+* The `BUILDKITE_COMMAND` env var will be ignored. Only `BUILDKITE_PLUGIN_DOCKER_COMPOSE_COMMAND` envar is read
+
+But why? I am not a big fan of buildkite plugins because when you have
+more than one plugin it is quite HARD to tell which logic of which plugin
+would be running first or last. So this modified version of Docker Compose
+plugin forces you to be more explicit
 
 ## Example
 
@@ -13,7 +18,10 @@ The following pipeline will run `test.sh` inside a `app` service container using
 
 ```yml
 steps:
-  - commands: container-compose
+  - commands:
+      - run-something
+      - container-compose
+      - run-other-thing
     plugins:
       - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
@@ -39,7 +47,7 @@ or multiple config files:
 
 ```yml
 steps:
-  - commands: container-compose
+  - command: container-compose
     plugins:
       - https://github.com/runlevel5/docker-compose-advanced-buildkite-plugin.git#1.0.0:
           run: app
